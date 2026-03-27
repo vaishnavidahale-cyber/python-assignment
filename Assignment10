@@ -1,0 +1,193 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNsgYxkg14iLKnuwEZUpMZ5",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/vaishnavidahale-cyber/python-assignment/blob/main/Assignment10\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 5,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "vpOF5fXy4Ycd",
+        "outputId": "4d95a9ac-d609-46b1-88b3-c0433c8dc3b1"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "Complete Book Report:\n",
+            "\n",
+            "           Title      Author  Edition  Year Publisher  Price\n",
+            "0  Python Basics    John Doe        2  2020       ABC    350\n",
+            "1   Data Science  Jane Smith        1  2019       XYZ    500\n",
+            "2       AI Guide    John Doe        3  2022       ABC    700\n",
+            "\n",
+            "Enter author name: fdgdfg\n",
+            "\n",
+            "Books by fdgdfg\n",
+            "Empty DataFrame\n",
+            "Columns: [Title, Author, Edition, Year, Publisher, Price]\n",
+            "Index: []\n",
+            "\n",
+            "Enter publisher name: asfs\n",
+            "\n",
+            "Books by Publisher: asfs\n",
+            "Empty DataFrame\n",
+            "Columns: [Title, Author, Edition, Year, Publisher, Price]\n",
+            "Index: []\n",
+            "\n",
+            "Cheapest Book:\n",
+            "Python Basics\n",
+            "\n",
+            "Costliest Book:\n",
+            "AI Guide\n",
+            "\n",
+            "Books Sorted by Year:\n",
+            "           Title      Author  Edition  Year Publisher  Price\n",
+            "1   Data Science  Jane Smith        1  2019       XYZ    500\n",
+            "0  Python Basics    John Doe        2  2020       ABC    350\n",
+            "2       AI Guide    John Doe        3  2022       ABC    700\n"
+          ]
+        }
+      ],
+      "source": [
+        "# Books CSV using\n",
+        "import pandas as pd\n",
+        "\n",
+        "# Read CSV file\n",
+        "df = pd.read_csv(\"booka.csv\")\n",
+        "\n",
+        "# a) Print complete report\n",
+        "print(\"\\nComplete Book Report:\\n\")\n",
+        "print(df)\n",
+        "\n",
+        "# b) Books by given author\n",
+        "author_name = input(\"\\nEnter author name: \")\n",
+        "print(\"\\nBooks by\", author_name)\n",
+        "print(df[df['Author'] == author_name])\n",
+        "\n",
+        "# c) Books by given publisher\n",
+        "publisher_name = input(\"\\nEnter publisher name: \")\n",
+        "print(\"\\nBooks by Publisher:\", publisher_name)\n",
+        "print(df[df['Publisher'] == publisher_name])\n",
+        "\n",
+        "# d) Cheapest and Costliest book\n",
+        "cheapest = df.loc[df['Price'].idxmin()]\n",
+        "costliest = df.loc[df['Price'].idxmax()]\n",
+        "\n",
+        "print(\"\\nCheapest Book:\")\n",
+        "print(cheapest['Title'])\n",
+        "\n",
+        "print(\"\\nCostliest Book:\")\n",
+        "print(costliest['Title'])\n",
+        "\n",
+        "# e) Sort by Year\n",
+        "print(\"\\nBooks Sorted by Year:\")\n",
+        "print(df.sort_values(by='Year'))"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# States Data\n",
+        "import pandas as pd\n",
+        "\n",
+        "# Create Data\n",
+        "data = {\n",
+        "    'State': ['Maharashtra', 'Gujarat', 'Rajasthan', 'Karnataka', 'Tamil Nadu'],\n",
+        "    'Area': [307713, 196244, 342239, 191791, 130058],  # in sq km\n",
+        "    'Population': [112374333, 60439692, 68548437, 61095297, 72147030]\n",
+        "}\n",
+        "\n",
+        "df = pd.DataFrame(data)\n",
+        "\n",
+        "# a) Complete information\n",
+        "print(\"\\nState Information:\\n\")\n",
+        "print(df)\n",
+        "\n",
+        "# b) State with largest area\n",
+        "largest_area = df.loc[df['Area'].idxmax()]\n",
+        "print(\"\\nState with Largest Area:\", largest_area['State'])\n",
+        "\n",
+        "# c) State with largest population\n",
+        "largest_pop = df.loc[df['Population'].idxmax()]\n",
+        "print(\"State with Largest Population:\", largest_pop['State'])\n",
+        "\n",
+        "# d) Calculate Population Density\n",
+        "df['Density'] = df['Population'] / df['Area']\n",
+        "\n",
+        "print(\"\\nPopulation Density:\")\n",
+        "print(df[['State', 'Density']])\n",
+        "\n",
+        "# e) State with highest population density\n",
+        "highest_density = df.loc[df['Density'].idxmax()]\n",
+        "print(\"\\nState with Highest Population Density:\", highest_density['State'])"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "lJL4kxH740eW",
+        "outputId": "0696d0d3-73bb-4e44-f054-6a878393aa48"
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "State Information:\n",
+            "\n",
+            "         State    Area  Population\n",
+            "0  Maharashtra  307713   112374333\n",
+            "1      Gujarat  196244    60439692\n",
+            "2    Rajasthan  342239    68548437\n",
+            "3    Karnataka  191791    61095297\n",
+            "4   Tamil Nadu  130058    72147030\n",
+            "\n",
+            "State with Largest Area: Rajasthan\n",
+            "State with Largest Population: Maharashtra\n",
+            "\n",
+            "Population Density:\n",
+            "         State     Density\n",
+            "0  Maharashtra  365.192023\n",
+            "1      Gujarat  307.982369\n",
+            "2    Rajasthan  200.294055\n",
+            "3    Karnataka  318.551428\n",
+            "4   Tamil Nadu  554.729659\n",
+            "\n",
+            "State with Highest Population Density: Tamil Nadu\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
